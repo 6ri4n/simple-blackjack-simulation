@@ -40,7 +40,31 @@ const generate_deck = () => {
     return deck
 };
 
+const get_card = (deck) => {
+    const randomNumber = Math.floor(Math.random() * deck.size);
+    let i = 0;
+
+    for (const card of deck) {
+        if (i === randomNumber) {
+            const randomCard = card;
+            deck.delete(randomCard);
+            return randomCard
+        }
+        i++;
+    }
+};
+
 const deck = generate_deck();
 
-console.log(deck);
+let turn = 0;
+let player = new Set();
+let playerPoints = 0;
+let dealer = new Set();
+let dealerPoints = 0;
+
+while (!((playerPoints === 21 || playerPoints > 21) || (dealerPoints === 21 || dealerPoints > 21))) {
+    if (turn === 0) {
+        break;
+    }
+}
 
