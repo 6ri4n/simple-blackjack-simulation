@@ -37,7 +37,7 @@ const generateDeck = () => {
         }
     }
 
-    return deck
+    return deck;
 };
 
 const getCard = (deck) => {
@@ -49,7 +49,7 @@ const getCard = (deck) => {
         if (i === randomNumber) {
             const randomCard = card;
             deck.delete(randomCard);
-            return randomCard
+            return randomCard;
         }
         i++;
     }
@@ -65,7 +65,7 @@ const getPointsAndDisplayCards = (currentCards) => {
         displayCurrentCards += `card: ${card.card}, suit: ${card.suit}\n`;
     }
 
-    return [currentPoints, displayCurrentCards]
+    return {points: currentPoints, display: displayCurrentCards};
 };
 
 const deck = generateDeck();
@@ -86,15 +86,15 @@ while (true) {
 
         let playerPointsAndCards = getPointsAndDisplayCards(player);
         let dealerPointsAndCards = getPointsAndDisplayCards(dealer);
-        playerPoints = playerPointsAndCards[0];
-        dealerPoints = dealerPointsAndCards[0];
-        console.log('Starting Player Hand:\n' + playerPointsAndCards[1] + `Starting Player Score: ${playerPoints}\n`);
-        console.log('Starting Dealer Hand:\n' + dealerPointsAndCards[1] + `Starting Dealer Score: ${dealerPoints}\n`);
+        playerPoints = playerPointsAndCards.points;
+        dealerPoints = dealerPointsAndCards.points;
+        console.log('Starting Player Hand:\n' + playerPointsAndCards.display + `Starting Player Score: ${playerPoints}\n`);
+        console.log('Starting Dealer Hand:\n' + dealerPointsAndCards.display + `Starting Dealer Score: ${dealerPoints}\n`);
 
         // player goes first
         player.add(getCard(deck));
         playerPointsAndCards = getPointsAndDisplayCards(player);
-        playerPoints = playerPointsAndCards[0];
+        playerPoints = playerPointsAndCards.points;
 
         turn++;
     }
@@ -119,12 +119,12 @@ while (true) {
         // dealer turn
         dealer.add(getCard(deck));
         let dealerPointsAndCards = getPointsAndDisplayCards(dealer);
-        dealerPoints = dealerPointsAndCards[0];
+        dealerPoints = dealerPointsAndCards.points;
     } else {
         // player turn
         player.add(getCard(deck));
         let playerPointsAndCards = getPointsAndDisplayCards(player);
-        playerPoints = playerPointsAndCards[0];
+        playerPoints = playerPointsAndCards.points;
     }
 
     turn++;
@@ -133,5 +133,5 @@ while (true) {
 // display ending hands
 const playerEndingHand = getPointsAndDisplayCards(player);
 const dealerEndingHand = getPointsAndDisplayCards(dealer);
-console.log(`Ending Player Hand:\n` + playerEndingHand[1]);
-console.log(`Ending Dealer Hand:\n` + dealerEndingHand[1]);
+console.log(`Ending Player Hand:\n` + playerEndingHand.display);
+console.log(`Ending Dealer Hand:\n` + dealerEndingHand.display);
